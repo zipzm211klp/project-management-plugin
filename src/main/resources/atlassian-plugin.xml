@@ -1,0 +1,58 @@
+<atlassian-plugin key="${atlassian.plugin.key}" name="${project.name}" plugins-version="2">
+    <plugin-info>
+        <description>${project.description}</description>
+        <version>${project.version}</version>
+        <vendor name="${project.organization.name}" url="${project.organization.url}" />
+        <param name="plugin-icon">images/pluginIcon.png</param>
+        <param name="plugin-logo">images/pluginLogo.png</param>
+    </plugin-info>
+
+    <!-- add our i18n resource -->
+    <resource type="i18n" name="i18n" location="project-management"/>
+    
+    <!-- add our web resources -->
+    <web-resource key="project-management-resources" name="project-management Web Resources">
+        <dependency>com.atlassian.auiplugin:ajs</dependency>
+        <dependency>com.atlassian.auiplugin:aui-progress-tracker</dependency>
+
+        <resource type="download" name="project-management.css" location="/css/project-management.css"/>
+        <resource type="download" name="project-management.js" location="/js/project-management.js"/>
+        <resource type="download" name="hide-customfields.js" location="/js/hide-customfields.js"/>
+        <resource type="download" name="images/" location="/images"/>
+
+        <!--<context>atl.admin</context>-->
+        <context>atl.general</context>
+        <!--<context>project-management</context>-->
+    </web-resource>
+
+    <web-section key="stages-project-config-section" name="Stages project configuration section"
+                 location="atl.jira.proj.config" weight="50"/>
+    <web-item name="Project Configuration for stages" i18n-name-key="project-configuration.name"
+              key="project-configuration" section="atl.jira.proj.config/stages-project-config-section" weight="10">
+        <description key="project-configuration.description"/>
+        <label key="project-configuration.label"/>
+        <link linkId="project-configuration-stages-link">/secure/ProjectConfigAction.jspa?pid=${helper.projectObject.id}&amp;projectKey=$projectKeyEncoded</link>
+    </web-item>
+
+    <webwork1 key="stages-project-config" name="StagesProjectConfig" i18n-name-key="stages-config.name">
+        <description key="stages-config.description">The Project Config Plugin</description>
+        <actions>
+            <action name="com.atlassian.jira.pm.webwork.ProjectConfigAction" alias="ProjectConfigAction">
+                <view name="success">/templates/success.vm</view>
+                <view name="input">/templates/input.vm</view>
+                <view name="error">/templates/error.vm</view>
+                <view name="edit">/templates/edit.vm</view>
+            </action>
+        </actions>
+    </webwork1>
+
+    <ao key="ao-module">
+        <entity>com.atlassian.jira.pm.entity.ProjectConfiguration</entity>
+        <entity>com.atlassian.jira.pm.entity.Stage</entity>
+    </ao>
+
+    <rest name="Stage info" key="stage-info-rest-resource" path="/stage-info" version="1.0">
+        <description key="stage-info">Stage info</description>
+    </rest>
+    
+</atlassian-plugin>

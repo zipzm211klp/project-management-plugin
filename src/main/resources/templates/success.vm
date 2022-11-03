@@ -1,0 +1,51 @@
+<html>
+<head>
+    <title>Stages config</title>
+    <meta name="admin.active.section" content="atl.jira.proj.config"/>
+    <meta name="admin.active.tab" content="project-configuration-teams-link"/>
+    <meta name="projectKey" content="$action.getProjectKey()"/>
+    <meta name="projectId" content="$action.getProjectId()"/>
+    <meta name="decorator" content="admin">
+</head>
+<body>
+    #set($pid = $action.getProject().getId())
+<header class="aui-page-header">
+    <div class="aui-page-header-inner">
+        <div class="aui-page-header-main">
+            <h1>Stages settings</h1>
+        </div>
+        #if ( $action.getService().get( $pid ) )
+            <div class="aui-page-header-actions">
+                <a href="ProjectConfigAction!edit.jspa?pid=$action.getProjectId()&projectKey=$action.getProjectKey()"
+                   class="aui-button add-permission" id="edit-button">Edit</a>
+            </div>
+        #else
+            <div class="aui-page-header-actions">
+                <a href="ProjectConfigAction!default.jspa?pid=$action.getProjectId()&projectKey=$action.getProjectKey()"
+                   class="aui-button add-permission" id="configure-button">Configure</a>
+            </div>
+        #end
+    </div>
+</header>
+    #if ( $action.getService().get( $pid ) )
+    <p>Configuration for stages is enabled.</p>
+        #set($dto = $action.getService().get( $pid ))
+    <h3>Current stage for the project</h3>
+    <ul>
+        <li>$dto.getStage()</li>
+    </ul>
+
+    #else
+    <div class="aui-group aui-group-trio" style="margin: 3% 0%">
+        <div class="aui-item">
+        </div>
+        <div class="aui-item">
+            <h2>Stages settings not configured for this project</h2>
+            <p>To setup settings click "Configure" button</p>
+        </div>
+        <div class="aui-item ">
+        </div>
+    </div>
+    #end
+</body>
+</html>

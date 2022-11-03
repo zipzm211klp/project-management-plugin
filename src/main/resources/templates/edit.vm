@@ -1,0 +1,59 @@
+<html>
+<head>
+    <title>Stages config: edit configuration</title>
+    <meta name="admin.active.section" content="atl.jira.proj.config"/>
+    <meta name="admin.active.tab" content="project-configuration-teams-link"/>
+    <meta name="projectKey" content="$action.getProjectKey()"/>
+    <meta name="projectId" content="$action.getProjectId()"/>
+    <meta name="decorator" content="admin">
+</head>
+<body>
+    #set($pid = $action.getProject().getId())
+<header class="aui-page-header">
+    <div class="aui-page-header-inner">
+        <div class="aui-page-header-main">
+            <h1>Edit configuration</h1>
+        </div>
+    </div>
+</header>
+    #set($dto = $action.getService().get( $pid ))
+<div class="aui-page-panel">
+    <div class="aui-page-panel-inner">
+        <section class="aui-page-panel-content">
+            #foreach( $error in $action.getErrorMessages() )
+                <div class="aui-message aui-message-error">
+                    <p class="title">
+                        <strong>Error!</strong>
+                    </p>
+                    <p>$error</p>
+                </div>
+            #end
+            <form class="aui"
+                  action="ProjectConfigAction!edit.jspa?pid=$action.getProjectId()&projectKey=$action.getProjectKey()"
+                  method="POST">
+                <input type="hidden" name="projectId" value="$action.getProjectId()">
+                <div class="field-group">
+                    <legend><span>Current stage for the project<span class="aui-icon icon-required">(required)</span>:</span></legend>
+                    <select class="select medium-long-field" id="stage" name="stage">
+                        <option value="Initiation">Initiation</option>
+                        <option value="Planning">Planning</option>
+                        <option value="Executing">Executing</option>
+                        <option value="Monitoring and Control">Monitoring and Control</option>
+                        <option value="Closure">Closure</option>
+                    </select>
+                </div>
+                <br>
+                <div class="buttons-container">
+                    <div class="buttons">
+                        <input class="aui-button aui-button-primary submit" type="submit" value="Update"
+                               id="update-configuration-button">
+                        <a class="cancel"
+                           href="ProjectConfigAction.jspa?pid=$action.getProjectId()&projectKey=$action.getProjectKey()">Cancel</a>
+                    </div>
+                </div>
+            </form>
+        </section>
+    </div>
+</div>
+</body>
+</html>

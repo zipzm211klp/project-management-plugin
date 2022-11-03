@@ -1,0 +1,15 @@
+#disable_html_escaping()
+<html>
+<head>
+    <title>Teams config: edit configuration</title>
+    <meta name="admin.active.section" content="atl.jira.proj.config"/>
+    <meta name="admin.active.tab" content="project-configuration-teams-link"/>
+    <meta name="projectKey" content="$action.getProjectKey()"/>
+    <meta name="projectId" content="$action.getProjectId()"/>
+    <meta name="decorator" content="admin">
+</head>
+<body>
+    <div class="aui-message aui-message-error">
+        <p>you don't have admin permission</p>
+    </div>
+</body>
